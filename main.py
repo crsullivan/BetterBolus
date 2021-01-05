@@ -121,8 +121,8 @@ while running == True:
     insulinEffectResistanceAdjusted = []
 
     for i in range(len(y)):
-        resistanceFactor = (1 - bolus.insulinResistanceAlgo(y[i])) * 5
-        insulinEffectResistanceAdjusted.append(insulinEffect[i] * resistanceFactor)
+        resistanceFactor = (1 - bolus.insulinResistanceAlgo(y[i]))
+        insulinEffectResistanceAdjusted.append(int((insulinEffect[i] * resistanceFactor) * 4))
 
     yAdjusted = []
     
