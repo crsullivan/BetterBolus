@@ -15,19 +15,10 @@ x = [0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 1.0
 # corresponding y axis values 
 y = [] 
 
-# setting y ranges
-plt.ylim(20, 600)
-
 # bolus profile values as an object of arrays, each with two values, the first being the amount of insulin in units, and the second being the amount of time in minutes between now and when the bolus would be taken
 bolusProfile = {}
 
-totalOnBoardInsulin = {}
-
-# naming the x axis 
-plt.xlabel('Time (hrs)') 
-# naming the y axis 
-plt.ylabel('BG (mg/dl)') 
-
+# totalOnBoardInsulin = {}
 
 validatedBoolAnswer = []
 validatedTrendingInfo = []
@@ -59,7 +50,13 @@ def checkTrendingInfo(trendingInfo):
         validatedTrendingInfo.append(trendingInfo)
 
 while running == True:
-
+    # naming the x axis 
+    plt.xlabel('Time (hrs)') 
+    # naming the y axis 
+    plt.ylabel('BG (mg/dl)') 
+    # setting y ranges
+    plt.ylim(20, 600)
+    y = [] 
     print("Please enter a Blood Glucose value between 120-499")
     bgInput = int(input())
     checkBGInput(bgInput)
@@ -111,17 +108,55 @@ while running == True:
 
     addBolus()
 
-    for key in bolusProfile:
-        for subkey in bolus.insulinProfile[key:]:
-            bolus.insulinProfile[subkey] *= bolusProfile[key]
-    print(bolus.insulinProfile)
+    bolusList = sorted(bolusProfile.items())
+
+    insulinProfileList = sorted(bolus.insulinProfile.items())
+
+    insulinEffect = []
+
+    for i in range(len(bolusList)):
+        for subI in range(len(insulinProfileList)):
+          insulinEffect.append(insulinProfileList[subI][1] * bolusList[i][1])
+    
+    insulinEffectResistanceAdjusted = []
+
+    for i in range(len(y)):
+        resistanceFactor = (1 - bolus.insulinResistanceAlgo(y[i])) * 5
+        insulinEffectResistanceAdjusted.append(insulinEffect[i] * resistanceFactor)
+
+    yAdjusted = []
+    
+    for i in range(len(y)):
+        if i == 0:
+            yAdjusted.append(y[i] - insulinEffectResistanceAdjusted[i])
+        else:
+            yAdjusted.append(yAdjusted[i-1] - insulinEffectResistanceAdjusted[i])
+    
+    print(yAdjusted)
+
+    # naming the x axis 
+    plt.xlabel('Time (hrs)') 
+    # naming the y axis 
+    plt.ylabel('BG (mg/dl)') 
+    plt.ylim(20, 600)
+    plt.title('Predicted Blood Glucose Adjusted For Bolus')
+    # function to show the plot 
+    # plotting the points  
+    plt.plot(x, yAdjusted) 
+    plt.show() 
+    
+
+
+
+
+
 
 
 
 
     
     # function to show the plot 
-    plt.show() 
+    # plt.show() 
 
     # testing 
     # print(len(x))
