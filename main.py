@@ -71,13 +71,10 @@ while running == True:
         print(f"You answered {validatedTrendingInfo[0]}")
         count = 48
         if validatedTrendingInfo[0] == "stable":
-            print(y[-1])
-            print(stable.stableY.stableVariance)
             while count > 0:
                 count -= 1
                 stableVariance = rnd.randint(-5, 5)
                 y.append(y[-1] + stableVariance)
-            print(y)
             # giving a title to my graph 
             plt.title('Predicted Unadjusted Blood Glucose')
              # function to show the plot 
@@ -99,9 +96,9 @@ while running == True:
             print("Please enter how many minutes from now the bolus will be applied")
             time = float(input())
             print(f"You added {bolus} units, to be applied in {time} minutes")
-            print(time)
+            # print(time)
             bolusProfile.update({time: bolus})
-            print(bolusProfile)
+            # print(bolusProfile)
             addBolus()
         if validatedBoolAnswer[-1] == "n":
             exit
@@ -132,7 +129,7 @@ while running == True:
         else:
             yAdjusted.append(yAdjusted[i-1] - insulinEffectResistanceAdjusted[i])
     
-    print(yAdjusted)
+    # print(yAdjusted)
 
     # naming the x axis 
     plt.xlabel('Time (hrs)') 
