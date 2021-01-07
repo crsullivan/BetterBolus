@@ -13,3 +13,4 @@ def insulinResistanceAlgo(bg):
         return resistanceLevel
     else:
         return resistanceLevel
+
