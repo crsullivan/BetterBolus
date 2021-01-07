@@ -49,6 +49,15 @@ def checkTrendingInfo(trendingInfo):
     else: 
         validatedTrendingInfo.append(trendingInfo)
 
+def checkTimeInput(timeInput):
+    if timeInput % 5 != 0:
+        print("Invalid input, enter a time divisible by 5. For example: '15' for fifteen minutes")
+        timeInput = int(input())
+        return checkTimeInput(timeInput)
+    else:
+        print("time input", timeInput)
+        return int(timeInput)
+
 while running == True:
     # naming the x axis 
     plt.xlabel('Time (hrs)') 
@@ -93,19 +102,22 @@ while running == True:
         if validatedBoolAnswer[-1] == "y":
             print("Please enter how many units of fast acting insulin to bolus")
             bolus = int(input())
-            print("Please enter how many minutes from now the bolus will be applied")
-            time = float(input())
-            print(f"You added {bolus} units, to be applied in {time} minutes")
-            # print(time)
-            bolusProfile.update({time: bolus})
+            print("Please enter how many minutes from now (divisible by 5) the bolus will be applied")
+            timeInput = int(input())
+            validatedTimeInput = checkTimeInput(timeInput)
+            # print("time ver", checkTimeInput(timeInput))
+            print(f"You added {bolus} units, to be applied in {validatedTimeInput} minutes")
+            # print(validatedTimeInput)
+            bolusProfile.update({validatedTimeInput: bolus})
             # print(bolusProfile)
             addBolus()
         if validatedBoolAnswer[-1] == "n":
             exit
 
     addBolus()
-
+    print(bolusProfile)
     bolusList = sorted(bolusProfile.items())
+    print(bolusList)
 
     insulinProfileList = sorted(bolus.insulinProfile.items())
 
