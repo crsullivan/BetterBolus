@@ -22,8 +22,10 @@ def runProgram():
         y = [] 
         # bolus profile values as an object of arrays, each with two values, the first being the amount of insulin in units, and the second being the amount of time in minutes between now and when the bolus would be taken
         bolusProfile = {}
-        print("Please enter a Blood Glucose value between 120-499")
-        bgInput = int(input())
+        print("Please enter a Blood Glucose value between 120-499, or press 'e' to exit.")
+        bgInput = input()
+        if bgInput == 'e':
+            exit()
         # insert current bg at start of y axis (current vlood glucose)
         y.append(validation.checkBGInput(bgInput))
         # check if user has trernding info
