@@ -89,14 +89,14 @@ while running == True:
         print(f"You answered {validatedBoolAnswer}")
         if validatedBoolAnswer[-1] == "y":
             print("Please enter how many units of fast acting insulin to bolus")
-            bolus = float(input())
+            validatedBolus = validation.checkBolus(input())
             print("Please enter how many minutes from now (divisible by 5) the bolus will be applied")
             timeInput = float(input())
             # validatedTimeInput = checkTimeInput(timeInput)
             # print("time ver", checkTimeInput(timeInput))
-            print(f"You added {bolus} units, to be applied in {timeInput} minutes")
+            print(f"You added {validatedBolus} units, to be applied in {timeInput} minutes")
             # print(timeInput)
-            bolusProfile.update({timeInput: bolus})
+            bolusProfile.update({timeInput: validatedBolus})
             # print(bolusProfile)
             addBolus()
         if validatedBoolAnswer[-1] == "n":
@@ -130,8 +130,6 @@ while running == True:
 
     insulinEffectResistanceAdjusted = []
 
-    print(insulinEffect)
-
     if validatedTrendingInfo:
         if validatedTrendingInfo == "rising":
             # build the rest of the y axis for a rising profile
@@ -160,9 +158,7 @@ while running == True:
             insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
 
     yAdjusted = []
-    
-    print(insulinEffectResistanceAdjusted)
-    
+        
     for i in range(len(y)):
         if i <= 2:
             yAdjusted.append(y[i])

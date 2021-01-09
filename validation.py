@@ -32,3 +32,19 @@ def checkTimeInput(timeInput):
     else:
         print("time input", timeInput)
         return timeInput
+
+def checkBolus(bolus):
+    try:
+        bolus = float(bolus)
+        if bolus <= 0:
+            print("Please enter a valid number of units to bolus")
+            bolus = input()
+            return checkBolus(bolus)
+        else:
+            return bolus
+    except ValueError:
+        print("Please enter a valid number of units to bolus")
+        bolus = input()
+        return checkBolus(bolus)
+
+
