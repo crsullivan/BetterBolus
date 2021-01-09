@@ -25,13 +25,24 @@ def checkTrendingInfo(trendingInfo):
         return trendingInfo
 
 def checkTimeInput(timeInput):
-    if timeInput % 5 != 0:
-        print("Invalid input, enter a time divisible by 5. For example: '15' for fifteen minutes")
-        timeInput = int(input())
+    if len(timeInput) != 4:
+        print("Please ensure your input is in the following format and try again: (hours).(minutes)")
+        timeInput = input()
         return checkTimeInput(timeInput)
     else:
-        print("time input", timeInput)
-        return timeInput
+        try:
+            timeInput = float(timeInput)
+            if (round(timeInput * 100)) % 5 != 0:
+                print("Invalid input, enter a time divisible by 5.")
+                timeInput = input()
+                return checkTimeInput(timeInput)
+            else:
+                print("time input", timeInput)
+                return timeInput
+        except ValueError:
+            print("Please enter a valid time using numbers and following this format: (hours):(minutes)")
+            timeInput = input()
+            return checkTimeInput(timeInput)
 
 def checkBolus(bolus):
     try:

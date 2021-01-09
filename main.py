@@ -90,13 +90,13 @@ while running == True:
         if validatedBoolAnswer[-1] == "y":
             print("Please enter how many units of fast acting insulin to bolus")
             validatedBolus = validation.checkBolus(input())
-            print("Please enter how many minutes from now (divisible by 5) the bolus will be applied")
-            timeInput = float(input())
+            print("Please enter how much time from now (divisible by 5) the bolus will be applied\nusing the following format: (hours).(minutes divisible by 5) for example: \nto represent one hour and fifteen minutes, 1.15 would be entered")
+            validatedTimeInput = validation.checkTimeInput(input())
             # validatedTimeInput = checkTimeInput(timeInput)
             # print("time ver", checkTimeInput(timeInput))
-            print(f"You added {validatedBolus} units, to be applied in {timeInput} minutes")
+            print(f"You added {validatedBolus} units, to be applied in {str(validatedTimeInput)[0]} hours and {str(validatedTimeInput)[2:]} minutes")
             # print(timeInput)
-            bolusProfile.update({timeInput: validatedBolus})
+            bolusProfile.update({validatedTimeInput: validatedBolus})
             # print(bolusProfile)
             addBolus()
         if validatedBoolAnswer[-1] == "n":
