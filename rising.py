@@ -22,6 +22,8 @@ def insulinResistanceAlgo(bg):
             resistanceLevel = (bg - 200) / 250
             if resistanceLevel < .25:
                 resistanceLevel = .25
+            if resistanceLevel > .95:
+                resistanceLevel = .95
             return resistanceLevel
         else:
             resistanceLevel = .25
