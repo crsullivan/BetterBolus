@@ -130,6 +130,8 @@ while running == True:
 
     insulinEffectResistanceAdjusted = []
 
+    print(insulinEffect)
+
     if validatedTrendingInfo:
         if validatedTrendingInfo == "rising":
             # build the rest of the y axis for a rising profile
@@ -158,6 +160,8 @@ while running == True:
             insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
 
     yAdjusted = []
+    
+    print(insulinEffectResistanceAdjusted)
     
     for i in range(len(y)):
         if i <= 2:
