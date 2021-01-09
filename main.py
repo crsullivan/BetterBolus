@@ -91,16 +91,21 @@ def runProgram():
             validatedBoolAnswer = validation.checkBoolAnswer(boolAnswer)
             print(f"You answered {validatedBoolAnswer}")
             if validatedBoolAnswer[-1] == "y":
-                print("Please enter how many units of fast acting insulin to bolus")
+                if len(bolusProfile) == 0:
+                    print("Please enter how many units of fast acting insulin to bolus immediately")
+                else: 
+                    print("Please enter how many units of fast acting insulin to bolus")
                 validatedBolus = validation.checkBolus(input())
-                print("Please enter how much time from now (divisible by 5) the bolus will be applied\nusing the following format: (hours).(minutes divisible by 5) for example: \nto represent one hour and fifteen minutes, 1.15 would be entered")
-                validatedTimeInput = validation.checkTimeInput(input())
+                if len(bolusProfile) == 0:
+                    validatedTimeInput = 0.00
+                else:
+                    print("Please enter how much time from now (divisible by 5) the bolus will be applied\nusing the following format: (hours).(minutes divisible by 5) for example: \nto represent one hour and fifteen minutes, 1.15 would be entered")
+                    validatedTimeInput = validation.checkTimeInput(input())
                 # validatedTimeInput = checkTimeInput(timeInput)
                 # print("time ver", checkTimeInput(timeInput))
                 stringFix = []
                 if len(str(validatedTimeInput)) == 3: 
                     stringFix.append(0)
-                    print(stringFix)
                 else:
                     stringFix.append("")
                 print(f"You added {validatedBolus} units, to be applied in {str(validatedTimeInput)[0]} hours and {str(validatedTimeInput)[2:]}{stringFix[0]} minutes")
