@@ -27,7 +27,7 @@ def insulinResistanceAlgo(bg):
             if resistanceLevel < .5:
                 resistanceLevel = .5
             return resistanceLevel
-        else:
+        else:  
             resistanceLevel = .5
             return resistanceLevel
     while count > 25 and count <= 35:

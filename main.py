@@ -157,7 +157,6 @@ while running == True:
             resistanceFactor = (1 - stable.insulinResistanceAlgo(y[i]))
             insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
 
-    print('adjusted', insulinEffectResistanceAdjusted)
     yAdjusted = []
     
     for i in range(len(y)):
