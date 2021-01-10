@@ -3,6 +3,12 @@ A tool to better understand how to safely and efficiently treat high blood sugar
 
 ## THIS PROGRAM IS CURRENTLY FOR MODELING PURPOSES ONLY AND SHOULD NOT BE USED TO DETERMINE HOW TO MANAGE AN INDIVIDUAL'S BLOOD GLUCOSE
 
+### Running the Program
+Step 1: Ensure all necessary dependencies are installed
+Step 2: cd into project directory
+Step 3: type "python main.py" or "python3 main.py" depending on your OS
+Step 4: Hit Enter and follow the console prompts, once a graph is generated, simply closing the graph will prompt you to the next stage of the program.
+
 ### Dependencies
 numpy version 1.19.3 - I would not recommend trying to use the latest version of numpy due to a bug with Windows. Microsoft expects this issue to be resolved within Q1 of 2021.
 
