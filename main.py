@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt 
 import numpy as np
 import random as rnd
+import tkinter as tk
+from tkinter import filedialog, Text
 import stable as stable
 import rising as rising
 import dropping as dropping
