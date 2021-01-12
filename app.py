@@ -44,7 +44,24 @@ def submit_f1():
     main.unadjusted_graph(trending)
     main.show_unadjusted_graph()
 
-      
+# creating a label for  
+# disclaimer 
+disclaimer_label = tk.Label(f1, text = "THIS PROGRAM IS CURRENTLY FOR MODELING PURPOSES ONLY\nAND SHOULD NOT BE USED TO DETERMINE\nHOW TO MANAGE AN INDIVIDUAL'S BLOOD GLUCOSE.", 
+                      font=('calibre', 
+                            10, 'bold')) 
+
+# creating a label for  
+# disclaimer cont'd
+disclaimer_label_cont = tk.Label(f1, text = "", 
+                      font=('calibre', 
+                            10, 'bold')) 
+
+# creating a label for  
+# disclaimer cont'd 2
+disclaimer_label_cont2 = tk.Label(f1, text = "", 
+                      font=('calibre', 
+                            10, 'bold')) 
+   
 # creating a label for  
 # bg using widget Label 
 bg_label = tk.Label(f1, text = 'Blood Glucose', 
@@ -109,15 +126,18 @@ sub_btn=tk.Button(f1,text = 'Submit',
 # placing the label and entry in 
 # the required position using grid 
 # method 
-bg_label.grid(row=0,column=0) 
-bg_entry.grid(row=0,column=1) 
-trending_label.grid(row=1,column=0)
-trending_profile.grid(row=1,column=1)
+disclaimer_label.grid(row=0,column=0,columnspan=2)
+# disclaimer_label_cont.pack()
+# disclaimer_label_cont2.pack()
+bg_label.grid(row=1,column=0) 
+bg_entry.grid(row=1,column=1) 
+trending_label.grid(row=2,column=0)
+trending_profile.grid(row=2,column=1)
 # bolus_label.grid(row=1,column=0) 
 # bolus_entry.grid(row=1,column=1) 
 # bolusTime_label.grid(row=2,column=0)
 # bolusTime_entry.grid(row=2,column=1)
-sub_btn.grid(row=2,column=1) 
+sub_btn.grid(row=3,column=1) 
    
 # performing an infinite loop  
 # for the window to display 
