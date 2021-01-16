@@ -11,7 +11,6 @@ import dropping_fast as dropping_fast
 import validation as validation
 import bolus as bolus
 
-
 # Main Program
 # print("\nWelcome to Better Bolus!\n")
 # print("THIS PROGRAM IS CURRENTLY FOR MODELING PURPOSES ONLY AND SHOULD NOT BE USED\n TO DETERMINE HOW TO MANAGE AN INDIVIDUAL'S BLOOD GLUCOSE\n")
@@ -20,8 +19,7 @@ import bolus as bolus
 x = [0.08163265, 0.1632653, 0.24489795, 0.3265306, 0.40816325, 0.48979589999999995, 0.5714285499999999, 0.6530611999999999, 0.7346938499999999, 0.8163264999999998, 0.8979591499999998, 0.9795917999999998, 1.0612244499999999, 1.1428570999999998, 1.2244897499999998, 1.3061223999999998, 1.3877550499999998, 1.4693876999999997, 1.5510203499999997, 1.6326529999999997, 1.7142856499999997, 1.7959182999999996, 1.8775509499999996, 1.9591835999999996, 2.0408162499999998, 2.1224488999999997, 2.2040815499999997, 2.2857141999999997, 2.3673468499999997, 2.4489794999999996, 2.5306121499999996, 2.6122447999999996, 2.6938774499999996, 2.7755100999999995, 2.8571427499999995, 2.9387753999999995, 3.0204080499999995, 3.1020406999999994, 3.1836733499999994, 3.2653059999999994, 3.3469386499999993, 3.4285712999999993, 3.5102039499999993, 3.5918365999999993, 3.6734692499999992, 3.755101899999999, 3.836734549999999, 3.918367199999999, 3.999999849999999]
 # corresponding y axis values list, values to be added by the program, starting with initial BG
 y = [] 
-# bolus profile values as an object of arrays, each with two values, the first being the amount of insulin in units, and the second being the amount of time in minutes between now and when the bolus would be taken
-bolusProfile = {}
+
 bgInput = ""
 # insert current bg at start of y axis (current blood glucose)
 def initial_bg(bg):
@@ -75,97 +73,113 @@ def show_unadjusted_graph():
     # function to show the plot
     plt.show() 
 
-def addBolus():
-    print("Would you like to add a Bolus? Type 'y' for Yes or 'n' for No")
-    boolAnswer = input()
-    validatedBoolAnswer = validation.checkBoolAnswer(boolAnswer)
-    print(f"You answered {validatedBoolAnswer}")
-    if validatedBoolAnswer[-1] == "y":
-        if len(bolusProfile) == 0:
-            print("Please enter how many units of fast acting insulin to bolus immediately")
-        else: 
-            print("Please enter how many units of fast acting insulin to bolus")
-        validatedBolus = validation.checkBolus(input())
-        if len(bolusProfile) == 0:
-            validatedTimeInput = 0.00
-        else:
-            print("Please enter how much time from now (divisible by 5) the bolus will be applied\nusing the following format: (hours).(minutes divisible by 5) for example: \nto represent one hour and fifteen minutes, 1.15 would be entered")
-            validatedTimeInput = validation.checkTimeInput(input())
-        # validatedTimeInput = checkTimeInput(timeInput)
-        # print("time ver", checkTimeInput(timeInput))
-        stringFix = []
-        if len(str(validatedTimeInput)) == 3: 
-            stringFix.append(0)
-        else:
-            stringFix.append("")
-        print(f"You added {validatedBolus} units, to be applied in {str(validatedTimeInput)[0]} hours and {str(validatedTimeInput)[2:]}{stringFix[0]} minutes")
-        # print(timeInput)
-        bolusProfile.update({validatedTimeInput: validatedBolus})
-        # print(bolusProfile)
-        addBolus()
+# def addBolus(bolus, time):
+    # profile = {time: bolus}
+    # print("Would you like to add a Bolus? Type 'y' for Yes or 'n' for No")
+    # boolAnswer = input()
+    # validatedBoolAnswer = validation.checkBoolAnswer(boolAnswer)
+    # print(f"You answered {validatedBoolAnswer}")
+    # if validatedBoolAnswer[-1] == "y":
+    # if len(bolusProfile) == 0:
+    #     print("Please enter how many units of fast acting insulin to bolus immediately")
+    # else: 
+    #     print("Please enter how many units of fast acting insulin to bolus")
+    # validatedBolus = validation.checkBolus(input())
+    # if len(bolusProfile) == 0:
+    #     validatedTimeInput = 0.00
+    # else:
+    #     validatedTimeInput = validation.checkTimeInput(input())
+    # validatedTimeInput = checkTimeInput(timeInput)
+    # print("time ver", checkTimeInput(timeInput))
+    # stringFix = []
+    # if len(str(time)) == 3: 
+    #     stringFix.append(0)
+    # else:
+    #     stringFix.append("")
+    # print(f"You added {bolus} units, to be applied in {str(time)[0]} hours and {str(time)[2:]}{stringFix[0]} minutes")
+    # print(timeInput)
+    # bolusProfile.update({time: bolus})
+    # print(bolusProfile)
+    # addBolus()
 
 # addBolus()
 
-# bolusList = sorted(bolusProfile.items())
 
-# insulinProfileList = sorted(bolus.insulinProfile.items())
+insulinProfileList = sorted(bolus.insulinProfile.items())
 
-# insulinEffect = []
+def applyInitialBolus(bolusProfile):
+    insulinEffect = []
+    bolusList = sorted(bolusProfile.items())
+    for i in range(len(insulinProfileList)):
+        insulinEffect.append(insulinProfileList[i][1] * bolusList[0][1])
+    return insulinEffect
 
-# for i in range(len(insulinProfileList)):
-#     insulinEffect.append(insulinProfileList[i][1] * bolusList[0][1])
-
-# def bolusStack():
-#     if len(bolusList) > 1:
-#         for i in range(len(bolusList) - 1):
-#             startTime = bolusList[i+1][0]
-#             # print('time', startTime)
-#             startIndex = list(bolus.insulinProfile.keys()).index(startTime)
-#             insulinEffectCopy = insulinEffect.copy()
-#             # print('slice', insulinEffect[startIndex:])
-#             del(insulinEffect[startIndex:])
-#             for subI in range(len(y[startIndex:])):
-#                 # print(insulinEffectCopy[startIndex:][subI], ' to ', insulinEffectCopy[startIndex:][subI] + insulinProfileList[subI][1] * bolusList[i+1][1])
-#                 insulinEffect.append(insulinEffectCopy[startIndex:][subI] + insulinProfileList[subI][1] * bolusList[i+1][1])
-#                 # print(subI)
+def bolusStack(insulinEffect, bolusProfile):
+    bolusList = sorted(bolusProfile.items())
+    for i in range(len(bolusList) - 1):
+        startTime = float(bolusList[i+1][0])
+        # print('time', startTime)
+        startIndex = list(bolus.insulinProfile.keys()).index(startTime)
+        print(insulinEffect)
+        insulinEffectCopy = insulinEffect.copy()
+        # print('slice', insulinEffect[startIndex:])
+        del(insulinEffect[startIndex:])
+        for subI in range(len(y[startIndex:])):
+            print(subI, bolusList, startIndex)
+            print(insulinEffect)
+            print("IE starting at subi", insulinEffectCopy[startIndex:])
+            insulinEffect.append(insulinEffectCopy[startIndex:][subI] + insulinProfileList[subI][1] * bolusList[i+1][1])
+            # print(subI)
+    return insulinEffect
 # # bolusStack()
+insulinEffectResistanceAdjusted = []
+def build_resistance_profile(trending, insulinEffect):
+    if trending == "Rising":
+        # build the rest of the y axis for a rising profile
+        for i in range(len(y)):
+            resistanceFactor = (1 - rising.insulinResistanceAlgo(y[i]))
+            insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
+    if trending == "Dropping":
+        # build the rest of the y axis for a dropping profile
+        for i in range(len(y)):
+            resistanceFactor = (1 - dropping.insulinResistanceAlgo(y[i]))
+            insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
+    if trending == "Rising Fast":
+        # build the rest of the y axis for a rising_fast profile
+        for i in range(len(y)):
+            resistanceFactor = (1 - rising_fast.insulinResistanceAlgo(y[i]))
+            insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
+    if trending == "Dropping Fast":
+        # build the rest of the y axis for a dropping_fast profile
+        for i in range(len(y)):
+            resistanceFactor = (1 - dropping_fast.insulinResistanceAlgo(y[i]))
+            insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
+    if trending == "Unknown" or trending == "Stable":
+        for i in range(len(y)):
+            resistanceFactor = (1 - stable.insulinResistanceAlgo(y[i]))
+            print()
+            insulinEffectResistanceAdjusted.append((insulinEffect[i] * resistanceFactor) * 4)
+    return insulinEffectResistanceAdjusted
 
-# insulinEffectResistanceAdjusted = []
-
-# if validatedTrendingInfo:
-#     if validatedTrendingInfo == "rising":
-#         # build the rest of the y axis for a rising profile
-#         for i in range(len(y)):
-#             resistanceFactor = (1 - rising.insulinResistanceAlgo(y[i]))
-#             insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
-#     if validatedTrendingInfo == "dropping":
-#         # build the rest of the y axis for a dropping profile
-#         for i in range(len(y)):
-#             resistanceFactor = (1 - dropping.insulinResistanceAlgo(y[i]))
-#             insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
-#     if validatedTrendingInfo == "rising fast":
-#         # build the rest of the y axis for a rising_fast profile
-#         for i in range(len(y)):
-#             resistanceFactor = (1 - rising_fast.insulinResistanceAlgo(y[i]))
-#             insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
-#     if validatedTrendingInfo == "dropping fast":
-#         # build the rest of the y axis for a dropping_fast profile
-#         for i in range(len(y)):
-#             resistanceFactor = (1 - dropping_fast.insulinResistanceAlgo(y[i]))
-#             insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
-
-# if validatedTrendingInfo == "none" or validatedTrendingInfo == "stable":
-#     for i in range(len(y)):
-#         resistanceFactor = (1 - stable.insulinResistanceAlgo(y[i]))
-#         insulinEffectResistanceAdjusted.append(((insulinEffect[i] * resistanceFactor) * 4))
-
-# yAdjusted = []
-    
-# for i in range(len(y)):
-#     if i <= 2:
-#         yAdjusted.append(y[i])
-#     else:
-#         yAdjusted.append(yAdjusted[i-1] - insulinEffectResistanceAdjusted[i])
+def show_adjusted_graph(insulinEffectResistanceAdjusted):
+    yAdjusted = []
+    for i in range(len(y)):
+        if i <= 2:
+            yAdjusted.append(y[i])
+        else:
+            yAdjusted.append(yAdjusted[i-1] - insulinEffectResistanceAdjusted[i])
+    # naming the x axis 
+    plt.xlabel('Time (hrs)') 
+    # naming the y axis 
+    plt.ylabel('BG (mg/dl)') 
+    # setting y ranges
+    plt.ylim(20, 600)
+    # giving a title to my graph 
+    plt.title('Predicted Adjusted Blood Glucose') 
+    # plotting the points  
+    plt.plot(x, yAdjusted) 
+    # function to show the plot
+    plt.show() 
 
 # plt.xlabel('Time (hrs)') 
 # # naming the y axis 
