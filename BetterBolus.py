@@ -1,3 +1,4 @@
+import requests
 import tkinter as tk
 from tkinter import filedialog, Text
 import main as main
@@ -8,7 +9,7 @@ def raise_frame(frame):
 
 root=tk.Tk() 
 root.title("Better Bolus V2.0")
-root.iconbitmap("./favicon.ico")
+root.iconbitmap("../favicon.ico")
 
 f1 = tk.Frame(root)
 f2 = tk.Frame(root)
@@ -44,9 +45,6 @@ def submit_f1():
     bg = int(bg_var.get()) 
     trending = trending_var.get()
       
-    print(f"bg is : {bg}") 
-    print("trending: " + trending) 
-      
     bg_var.set("") 
 
     main.initial_bg(bg)
@@ -60,16 +58,10 @@ def submit_f2():
     bolus = int(bolus_var.get()) 
     trending = trending_var.get()
     time = bolusTime_var.get()
-    print("time1:", time)
     if bolusTime_var.get() == "":
         time = '0.00'
-        print("time2:", time)
-
-    print(f"bolus is : {bolus}") 
-    print("trending: " + trending) 
 
     bolusProfile.update({time: bolus})
-    print(bolusProfile)
 
     bolus_var.set("") 
     trending_var.set("")
@@ -84,13 +76,8 @@ def add_another_bolus():
   
     bolus = int(bolus_var.get()) 
     time = bolusTime_var.get()
-    print("time1:", time)
     if bolusTime_var.get() == "":
         time = '0.00'
-        print("time2:", time)
-
-    print(f"bolus is : {bolus}") 
-    print(f"time: {time}") 
 
     bolusProfile.update({time: bolus})
 
@@ -104,19 +91,13 @@ def add_another_bolus2():
   
     bolus = int(bolus_var.get()) 
     time = bolusTime_var.get()
-    print("time1:", time)
     if bolusTime_var.get() == "":
         time = '0.00'
-        print("time2:", time)
-
-    print(f"bolus is : {bolus}") 
-    print(f"time: {time}") 
 
     bolusProfile.update({time: bolus})
 
     bolus_var.set("") 
     bolusTime_var.set("")
-    print(insulinEffectUpdated[0])
     insulinEffectUpdated.append(main.bolusStack(insulinEffectUpdated[len(insulinEffectUpdated) - 1], bolusProfile))
 
 def submit_f3(): 
@@ -124,17 +105,10 @@ def submit_f3():
     bolus = int(bolus_var.get()) 
     trending = trending_var.get()
     time = bolusTime_var.get()
-    print("time1:", time)
     if bolusTime_var.get() == "":
         time = '0.00'
-        print("time2:", time)
-
-    print(f"bolus is : {bolus}") 
-    print("trending: " + trending) 
-    print(f"time: {time}")
 
     bolusProfile.update({time: bolus})
-    print(bolusProfile)
 
     bolus_var.set("") 
     trending_var.set("")
@@ -142,7 +116,6 @@ def submit_f3():
 
     insulinEffectUpdated.append(main.bolusStack(insulinEffectUpdated[len(insulinEffectUpdated) - 1], bolusProfile))
     insulinEffectResistanceAdjusted = main.build_resistance_profile(trending, insulinEffectUpdated[len(insulinEffectUpdated) - 1])
-    # print(insulinEffectResistanceAdjusted)
     main.show_adjusted_graph(insulinEffectResistanceAdjusted)
 # creating a label for  
 # disclaimer 
@@ -243,7 +216,6 @@ times = SortedSet()
 
 for el in main.insulinProfileList:
     times.add(el[0])
-print(times)
 
 bolus_time = tk.OptionMenu(f3, bolusTime_var, *times,)
 time_label = tk.Label(f3, text="Choose a time to apply bolus\nin 5 minute increments from now")
