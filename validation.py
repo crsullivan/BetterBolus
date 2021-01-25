@@ -2,19 +2,14 @@ def checkBGInput(bgInput):
     try:
         bgInput = int(bgInput)
         if bgInput < 120 or bgInput > 499:
-            print("Invalid Input \nYou must enter an input equal to or between 120-499")
-            print("Please enter a Blood Glucose value between 120-499")
-            bgInput = input()
-            return checkBGInput(bgInput)
+            msg = "Invalid Input \nYou must enter an input equal to or between 120-499"
+            return msg
         else: 
             return bgInput
     except ValueError:
-        if bgInput != 'e':
-            print("Invalid input. please enter an integer between 120 and 499, or type 'e' to exit.")
-            bgInput = input()
-            return checkBGInput(bgInput)
-        else:
-            return bgInput
+        msg = "Invalid input. please enter an integer between 120 and 499, or type 'e' to exit."
+        return msg
+
 
 def checkBoolAnswer(boolAnswer):
     if boolAnswer != 'y' and boolAnswer != 'n':

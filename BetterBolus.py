@@ -3,13 +3,15 @@ import tkinter as tk
 from tkinter import filedialog, Text
 import main as main
 from sortedcontainers import SortedSet
+import validation as validation
 
+# This file runs the main program 
 def raise_frame(frame):
     frame.tkraise()
 
 root=tk.Tk() 
 root.title("Better Bolus V2.0")
-root.iconbitmap("../favicon.ico")
+# root.iconbitmap("../favicon.ico")
 
 f1 = tk.Frame(root)
 f2 = tk.Frame(root)
@@ -42,14 +44,23 @@ bolusTime_var = tk.StringVar()
 # generate original graph
 def submit_f1(): 
   
-    bg = int(bg_var.get()) 
     trending = trending_var.get()
-      
-    bg_var.set("") 
-
-    main.initial_bg(bg)
-    main.unadjusted_graph(trending)
-    main.show_unadjusted_graph()
+     
+    # Validation 
+    try: 
+        int(bg_var.get())
+        if 120 < int(bg_var.get()) < 450:
+            120 < int(bg_var.get()) < 450
+            raise_frame(f2)
+            main.initial_bg(int(bg_var.get()))
+            main.unadjusted_graph(trending)
+            main.show_unadjusted_graph()
+        else:
+            bg_label.config(text="serffesInvalid input. please enter an integer between 120 and 450:")
+    except ValueError:
+        bg_label.config(text="Invalid input. please enter an integer between 120 and 450:")
+       
+    bg_var.set("")
 
 # defining a function that will 
 # generate graph with bolus profile applied
@@ -164,7 +175,7 @@ trending_var.trace('w', change_dropdown)
 # creating a button using the widget  
 # Button that will call the submit function  
 sub_btn=tk.Button(f1,text = 'Submit', 
-                  command = lambda:[raise_frame(f2), submit_f1()]
+                  command = lambda:[submit_f1()]
                   )
 
 # creating a label for f2 
