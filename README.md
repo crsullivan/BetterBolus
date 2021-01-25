@@ -15,6 +15,8 @@ matplotlib - Latest version is best.
 
 sortedcontainers - Latest version is best
 
+pyinstaller - Latest version is best, only necessary to convert to the executable
+
 ### Potential Issues
 Currently this program assumes that when the user wants to bolus, they want the first bolus immediately in an attempt to stabilize dangerous blood glucose levels as quickly as possible. Therefore, the first bolus entered is automatically applied at 0.00 (immediately). This may change in future updates.
 
