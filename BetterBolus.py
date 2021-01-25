@@ -37,7 +37,6 @@ bg_var = tk.StringVar()
 trending_var = tk.StringVar()
 bolus_var = tk.StringVar() 
 bolusTime_var = tk.StringVar()
-
    
 # defining a function that will 
 # generate original graph based off BG
@@ -54,7 +53,7 @@ def submit_f1():
             main.unadjusted_graph(trending)
             main.show_unadjusted_graph()
         else:
-            bg_label.config(text="serffesInvalid input. please enter an integer between 120 and 450:")
+            bg_label.config(text="Invalid input. please enter an integer between 120 and 450:")
     except ValueError:
         bg_label.config(text="Invalid input. please enter an integer between 120 and 450:")
        
@@ -161,6 +160,18 @@ def submit_f3():
     except ValueError:
         bolus_label.config(text="Invalid input. Please enter an integer between 0 and 10:")
 
+# function to update bolus profile label 
+def change_profile_text(bolusprofile_label):
+    print(bolusProfile)
+    profile_string = ""
+    for key in bolusProfile:
+        if len(key) == 3:
+            make_str_readable = "0"
+        else:
+            make_str_readable = ""
+        profile_string = profile_string + str(bolusProfile[key]) + " Unit(s) in " + str(key[0]) + " hours and " + str(key[2:]) + make_str_readable + " minutes\n"
+    bolusprofile_label.config(text = f"Current Bolus Profile: {profile_string}")
+
 # creating a label for  
 # disclaimer 
 disclaimer_label = tk.Label(f1, text = "THIS PROGRAM IS CURRENTLY FOR MODELING PURPOSES ONLY\nAND SHOULD NOT BE USED TO DETERMINE\nHOW TO MANAGE AN INDIVIDUAL'S BLOOD GLUCOSE.", 
@@ -233,16 +244,10 @@ sub2_btn=tk.Button(f2,text = 'Apply',
 
 # creating a button using the widget  
 # Button that will call the submit function for f2
-add_bolus_btn=tk.Button(f2,text = 'Add another bolus', 
-                  command = lambda:[add_another_bolus()]
-                    )
+add_bolus_btn=tk.Button(f2,text = 'Add another bolus',
+                  command = lambda:[add_another_bolus(), change_profile_text(bolusprofile_label)])
 # creating a label for f3
 f3_label = tk.Label(f3, text = "Please enter another bolus value with a time to be applied", 
-                      font=('calibre', 
-                            10, 'bold'))  
-
-# creating a label for f3
-bolusprofile_label = tk.Label(f3, text =str(bolusProfile), 
                       font=('calibre', 
                             10, 'bold'))  
 
@@ -255,6 +260,11 @@ bolus_label2 = tk.Label(f3,
 bolus_entry2=tk.Entry(f3, 
                      textvariable = bolus_var, 
                      font = ('calibre',10,'normal')) 
+
+# creating a label for f3
+bolusprofile_label = tk.Label(f3, text = "", 
+    font=('calibre', 
+        10, 'bold'))
 
 times = SortedSet()
 
@@ -280,7 +290,7 @@ sub3_btn=tk.Button(f3,text = 'Apply',
 # creating a button using the widget  
 # Button that will call the submit function for f3
 add_bolus_btn2=tk.Button(f3,text = 'Add another bolus', 
-                  command = lambda:[add_another_bolus2()] 
+                  command = lambda:[add_another_bolus2(), change_profile_text(bolusprofile_label)] 
 )
 
 # placing the label and entry in 
