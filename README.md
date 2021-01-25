@@ -10,11 +10,10 @@ Step 3: type "python main.py" or "python3 main.py" depending on your OS
 Step 4: Hit Enter and follow the console prompts, once a graph is generated, simply closing the graph will prompt you to the next stage of the program.
 
 ### Dependencies
-numpy version 1.19.3 - I would not recommend trying to use the latest version of numpy due to a bug with Windows. Microsoft expects this issue to be resolved within Q1 of 2021.
 
 matplotlib - Latest version is best.
 
-random - Latest version is best.
+sortedcontainers - Latest version is best
 
 ### Potential Issues
 Currently this program assumes that when the user wants to bolus, they want the first bolus immediately in an attempt to stabilize dangerous blood glucose levels as quickly as possible. Therefore, the first bolus entered is automatically applied at 0.00 (immediately). This may change in future updates.
