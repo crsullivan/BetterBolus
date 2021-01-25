@@ -109,16 +109,21 @@ def add_another_bolus():
 
 def add_another_bolus2(): 
   
-    bolus = int(bolus_var.get()) 
     time = bolusTime_var.get()
     if bolusTime_var.get() == "":
         time = '0.00'
 
-    bolusProfile.update({time: bolus})
+    try:
+        bolus = int(bolus_var.get())
+        if 0 <= bolus <= 10:
+            bolusProfile.update({time: bolus})
+            insulinEffectUpdated.append(main.bolusStack(insulinEffectUpdated[len(insulinEffectUpdated) - 1], bolusProfile))
+        else: 
+            bolus_label2.config(text="Invalid input. Please enter a bolus between 0 and 10:")
+    except ValueError:
+        bolus_label2.config(text="Invalid input. Please enter an integer between 0 and 10:")
 
-    bolus_var.set("") 
-    bolusTime_var.set("")
-    insulinEffectUpdated.append(main.bolusStack(insulinEffectUpdated[len(insulinEffectUpdated) - 1], bolusProfile))
+    bolus_var.set("")
 
 def submit_f3(): 
   
