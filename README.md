@@ -4,11 +4,8 @@ A tool to better understand how to safely and efficiently treat high blood sugar
 ## THIS PROGRAM IS CURRENTLY FOR MODELING PURPOSES ONLY AND SHOULD NOT BE USED TO DETERMINE HOW TO MANAGE AN INDIVIDUAL'S BLOOD GLUCOSE
 
 ### Dependencies
-numpy version 1.19.3 - I would not recommend trying to use the latest version of numpy due to a bug with Windows. Microsoft expects this issue to be resolved within Q1 of 2021.
 
 matplotlib - Latest version is best.
-
-random - Latest version is best.
 
 sortedcontainers - Latest version is best
 
