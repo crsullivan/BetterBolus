@@ -41,18 +41,17 @@ bolusTime_var = tk.StringVar()
 
    
 # defining a function that will 
-# generate original graph
+# generate original graph based off BG
 def submit_f1(): 
   
     trending = trending_var.get()
      
     # Validation 
     try: 
-        int(bg_var.get())
+        bg = int(bg_var.get())
         if 120 < int(bg_var.get()) < 450:
-            120 < int(bg_var.get()) < 450
             raise_frame(f2)
-            main.initial_bg(int(bg_var.get()))
+            main.initial_bg(bg)
             main.unadjusted_graph(trending)
             main.show_unadjusted_graph()
         else:
@@ -65,21 +64,26 @@ def submit_f1():
 # defining a function that will 
 # generate graph with bolus profile applied
 def submit_f2(): 
-  
-    bolus = int(bolus_var.get()) 
+     
     trending = trending_var.get()
     time = bolusTime_var.get()
     if bolusTime_var.get() == "":
         time = '0.00'
 
-    bolusProfile.update({time: bolus})
+    try:
+        bolus = int(bolus_var.get())
+        if 0 <= bolus <= 10:
+            bolusProfile.update({time: bolus})
+            insulinEffect = main.applyInitialBolus(bolusProfile)
+            insulinEffectResistanceAdjusted = main.build_resistance_profile(trending, insulinEffect)
+            root.destroy()
+            main.show_adjusted_graph(insulinEffectResistanceAdjusted)
+        else: 
+            bolus_label.config(text="Invalid input. Please enter a bolus between 0 and 10:")
+    except ValueError:
+        bolus_label.config(text="Invalid input. Please enter an integer between 0 and 10:")
 
     bolus_var.set("") 
-    trending_var.set("")
-
-    insulinEffect = main.applyInitialBolus(bolusProfile)
-    insulinEffectResistanceAdjusted = main.build_resistance_profile(trending, insulinEffect)
-    main.show_adjusted_graph(insulinEffectResistanceAdjusted)
 
 # defining a function that will 
 # allow user to add more bolus info
@@ -195,8 +199,8 @@ bolus_entry=tk.Entry(f2,
 
 # creating a button using the widget  
 # Button that will call the submit function for f2  
-sub2_btn=tk.Button(f2,text = 'Apply', 
-                  command = submit_f2) 
+sub2_btn=tk.Button(f2,text = 'Apply',
+                    command = lambda:[submit_f2()]) 
 
 # creating a button using the widget  
 # Button that will call the submit function for f2
