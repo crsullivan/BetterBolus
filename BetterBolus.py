@@ -21,7 +21,7 @@ for frame in (f1, f2, f3, f4):
     frame.grid(row=0, column=0, sticky='news')
   
 # setting the windows size  
-root.geometry("600x400") 
+root.geometry("500x500") 
 
 # bolus profile values as an object of arrays, each with two values, 
 # the first being the amount of insulin in units, 
@@ -53,9 +53,9 @@ def submit_f1():
             main.unadjusted_graph(trending)
             main.show_unadjusted_graph()
         else:
-            bg_label.config(text="Invalid input. please enter an integer between 120 and 450:")
+            bg_label.config(text="Invalid input\nplease enter an integer between 120 and 450:")
     except ValueError:
-        bg_label.config(text="Invalid input. please enter an integer between 120 and 450:")
+        bg_label.config(text="Invalid input\nplease enter an integer between 120 and 450:")
        
     bg_var.set("")
 
@@ -85,9 +85,9 @@ def submit_f2():
             root.destroy()
             main.show_adjusted_graph(insulinEffectResistanceAdjusted)
         else: 
-            bolus_label.config(text="Invalid input. Please enter a bolus between 0 and 10:")
+            bolus_label.config(text="Invalid input\nPlease enter a bolus between 0 and 10:")
     except ValueError:
-        bolus_label.config(text="Invalid input. Please enter an integer between 0 and 10:")
+        bolus_label.config(text="Invalid input\nPlease enter an integer between 0 and 10:")
 
     bolus_var.set("") 
 
@@ -107,9 +107,9 @@ def add_another_bolus():
             insulinEffectUpdated.append(main.bolusStack(insulinEffect, bolusProfile))
             raise_frame(f3)
         else: 
-            bolus_label.config(text="Invalid input. Please enter a bolus between 0 and 10:")
+            bolus_label.config(text="Invalid input\nPlease enter a bolus between 0 and 10:")
     except ValueError:
-        bolus_label.config(text="Invalid input. Please enter an integer between 0 and 10:")
+        bolus_label.config(text="Invalid input\nPlease enter an integer between 0 and 10:")
 
     bolus_var.set("")
 
@@ -125,9 +125,9 @@ def add_another_bolus2():
             bolusProfile.update({time: bolus})
             insulinEffectUpdated.append(main.bolusStack(insulinEffectUpdated[len(insulinEffectUpdated) - 1], bolusProfile))
         else: 
-            bolus_label2.config(text="Invalid input. Please enter a bolus between 0 and 10:")
+            bolus_label2.config(text="Invalid input\nPlease enter a bolus between 0 and 10:")
     except ValueError:
-        bolus_label2.config(text="Invalid input. Please enter an integer between 0 and 10:")
+        bolus_label2.config(text="Invalid input\nPlease enter an integer between 0 and 10:")
 
     bolus_var.set("")
 
@@ -156,9 +156,9 @@ def submit_f3():
             root.destroy()
             main.show_adjusted_graph(insulinEffectResistanceAdjusted)
         else: 
-            bolus_label.config(text="Invalid input. Please enter a bolus between 0 and 10:")
+            bolus_label.config(text="Invalid input\nPlease enter a bolus between 0 and 10:")
     except ValueError:
-        bolus_label.config(text="Invalid input. Please enter an integer between 0 and 10:")
+        bolus_label.config(text="Invalid input\nPlease enter an integer between 0 and 10:")
 
 # function to update bolus profile label 
 def change_profile_text(bolusprofile_label):
@@ -295,31 +295,31 @@ add_bolus_btn2=tk.Button(f3,text = 'Add another bolus',
 
 # placing the label and entry in 
 # the required position using grid for f1
-disclaimer_label.grid(row=0,column=0,columnspan=2)
-bg_label.grid(row=1,column=0) 
+disclaimer_label.grid(row=0,column=0,columnspan=2,padx=20,pady=20)
+bg_label.grid(row=1,column=0,padx=20,pady=20) 
 bg_entry.grid(row=1,column=1) 
-trending_label.grid(row=2,column=0)
+trending_label.grid(row=2,column=0,padx=20,pady=20)
 trending_profile.grid(row=2,column=1)
-sub_btn.grid(row=3,column=1) 
+sub_btn.grid(row=3,column=1,padx=20,pady=20) 
 
 # placing the label and entry in 
 # the required position using grid for f2
-f2_label.grid(row=0,column=0,columnspan=2)
-bolus_label.grid(row=1,column=0) 
+f2_label.grid(row=0,column=0,columnspan=2,padx=20,pady=20)
+bolus_label.grid(row=1,column=0,padx=20,pady=20) 
 bolus_entry.grid(row=1,column=1) 
-sub2_btn.grid(row=3,column=1) 
-add_bolus_btn.grid(row=3,column=2)
+sub2_btn.grid(row=3,column=0,padx=20,pady=20) 
+add_bolus_btn.grid(row=3,column=1)
 
 # placing the label and entry in 
 # the required position using grid for f3
-f3_label.grid(row=0,column=0,columnspan=2)
-bolusprofile_label.grid(row=1,column=0,columnspan=2)
-bolus_label2.grid(row=2,column=0) 
+f3_label.grid(row=0,column=0,columnspan=2,padx=20,pady=20)
+bolusprofile_label.grid(row=1,column=0,columnspan=2,padx=20,pady=20)
+bolus_label2.grid(row=2,column=0,padx=20,pady=20) 
 bolus_entry2.grid(row=2,column=1) 
-time_label.grid(row=3,column=0)
+time_label.grid(row=3,column=0,padx=20,pady=20)
 bolus_time.grid(row=3,column=1)
-sub3_btn.grid(row=4,column=1) 
-add_bolus_btn2.grid(row=4,column=2)
+sub3_btn.grid(row=4,columnspan=2,padx=20,pady=20) 
+add_bolus_btn2.grid(row=5,columnspan=2)
 
 # performing an infinite loop  
 # for the window to display 
