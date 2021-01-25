@@ -127,21 +127,25 @@ def add_another_bolus2():
 
 def submit_f3(): 
   
-    bolus = int(bolus_var.get()) 
     trending = trending_var.get()
     time = bolusTime_var.get()
     if bolusTime_var.get() == "":
         time = '0.00'
 
-    bolusProfile.update({time: bolus})
+    try:
+        bolus = int(bolus_var.get())
+        if 0 <= bolus <= 10:
+            bolusProfile.update({time: bolus})
+            insulinEffectUpdated.append(main.bolusStack(insulinEffectUpdated[len(insulinEffectUpdated) - 1], bolusProfile))
+            insulinEffectResistanceAdjusted = main.build_resistance_profile(trending, insulinEffectUpdated[len(insulinEffectUpdated) - 1])
+            print(bolusProfile)
+            root.destroy()
+            main.show_adjusted_graph(insulinEffectResistanceAdjusted)
+        else: 
+            bolus_label.config(text="Invalid input. Please enter a bolus between 0 and 10:")
+    except ValueError:
+        bolus_label.config(text="Invalid input. Please enter an integer between 0 and 10:")
 
-    bolus_var.set("") 
-    trending_var.set("")
-    bolusTime_var.set("")
-
-    insulinEffectUpdated.append(main.bolusStack(insulinEffectUpdated[len(insulinEffectUpdated) - 1], bolusProfile))
-    insulinEffectResistanceAdjusted = main.build_resistance_profile(trending, insulinEffectUpdated[len(insulinEffectUpdated) - 1])
-    main.show_adjusted_graph(insulinEffectResistanceAdjusted)
 # creating a label for  
 # disclaimer 
 disclaimer_label = tk.Label(f1, text = "THIS PROGRAM IS CURRENTLY FOR MODELING PURPOSES ONLY\nAND SHOULD NOT BE USED TO DETERMINE\nHOW TO MANAGE AN INDIVIDUAL'S BLOOD GLUCOSE.", 
