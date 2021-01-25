@@ -8,7 +8,6 @@ import rising as rising
 import dropping as dropping
 import rising_fast as rising_fast
 import dropping_fast as dropping_fast
-import validation as validation
 import bolus as bolus
 
 # x axis values 

@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import filedialog, Text
 import main as main
 from sortedcontainers import SortedSet
-import validation as validation
 
 # This file runs the main program 
 def raise_frame(frame):
@@ -70,6 +69,14 @@ def submit_f2():
     if bolusTime_var.get() == "":
         time = '0.00'
 
+    if bolus_var.get() == "":
+        bolus = 0
+        bolusProfile.update({time: bolus})
+        insulinEffect = main.applyInitialBolus(bolusProfile)
+        insulinEffectResistanceAdjusted = main.build_resistance_profile(trending, insulinEffect)
+        root.destroy()
+        main.show_adjusted_graph(insulinEffectResistanceAdjusted)
+
     try:
         bolus = int(bolus_var.get())
         if 0 <= bolus <= 10:
@@ -132,8 +139,16 @@ def submit_f3():
     if bolusTime_var.get() == "":
         time = '0.00'
 
+    if bolus_var.get() == "":
+        insulinEffectUpdated.append(main.bolusStack(insulinEffectUpdated[len(insulinEffectUpdated) - 1], bolusProfile))
+        insulinEffectResistanceAdjusted = main.build_resistance_profile(trending, insulinEffectUpdated[len(insulinEffectUpdated) - 1])
+        print(bolusProfile)
+        root.destroy()
+        main.show_adjusted_graph(insulinEffectResistanceAdjusted)
+
     try:
         bolus = int(bolus_var.get())
+        print(bolus)
         if 0 <= bolus <= 10:
             bolusProfile.update({time: bolus})
             insulinEffectUpdated.append(main.bolusStack(insulinEffectUpdated[len(insulinEffectUpdated) - 1], bolusProfile))
@@ -227,7 +242,7 @@ f3_label = tk.Label(f3, text = "Please enter another bolus value with a time to 
                             10, 'bold'))  
 
 # creating a label for f3
-bolusprofile_label = tk.Label(f3, text = f"{bolusProfile}", 
+bolusprofile_label = tk.Label(f3, text =str(bolusProfile), 
                       font=('calibre', 
                             10, 'bold'))  
 
