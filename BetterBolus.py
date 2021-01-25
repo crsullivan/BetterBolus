@@ -89,18 +89,23 @@ def submit_f2():
 # allow user to add more bolus info
 def add_another_bolus(): 
   
-    bolus = int(bolus_var.get()) 
     time = bolusTime_var.get()
     if bolusTime_var.get() == "":
         time = '0.00'
 
-    bolusProfile.update({time: bolus})
+    try:
+        bolus = int(bolus_var.get())
+        if 0 <= bolus <= 10:
+            bolusProfile.update({time: bolus})
+            insulinEffect = main.applyInitialBolus(bolusProfile)
+            insulinEffectUpdated.append(main.bolusStack(insulinEffect, bolusProfile))
+            raise_frame(f3)
+        else: 
+            bolus_label.config(text="Invalid input. Please enter a bolus between 0 and 10:")
+    except ValueError:
+        bolus_label.config(text="Invalid input. Please enter an integer between 0 and 10:")
 
-    bolus_var.set("") 
-    bolusTime_var.set("")
-
-    insulinEffect = main.applyInitialBolus(bolusProfile)
-    insulinEffectUpdated.append(main.bolusStack(insulinEffect, bolusProfile))
+    bolus_var.set("")
 
 def add_another_bolus2(): 
   
@@ -205,7 +210,7 @@ sub2_btn=tk.Button(f2,text = 'Apply',
 # creating a button using the widget  
 # Button that will call the submit function for f2
 add_bolus_btn=tk.Button(f2,text = 'Add another bolus', 
-                  command = lambda:[raise_frame(f3), add_another_bolus()]
+                  command = lambda:[add_another_bolus()]
                     )
 # creating a label for f3
 f3_label = tk.Label(f3, text = "Please enter another bolus value with a time to be applied", 
@@ -251,7 +256,7 @@ sub3_btn=tk.Button(f3,text = 'Apply',
 # creating a button using the widget  
 # Button that will call the submit function for f3
 add_bolus_btn2=tk.Button(f3,text = 'Add another bolus', 
-                  command = lambda:[raise_frame(f3), add_another_bolus2()] 
+                  command = lambda:[add_another_bolus2()] 
 )
 
 # placing the label and entry in 
