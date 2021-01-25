@@ -13,6 +13,8 @@ Step 4: Hit Enter and follow the console prompts, once a graph is generated, sim
 
 matplotlib - Latest version is best.
 
+sortedcontainers - Latest version is best
+
 ### Potential Issues
 Currently this program assumes that when the user wants to bolus, they want the first bolus immediately in an attempt to stabilize dangerous blood glucose levels as quickly as possible. Therefore, the first bolus entered is automatically applied at 0.00 (immediately). This may change in future updates.
 
