@@ -3,11 +3,14 @@ A tool to better understand how to safely and efficiently treat high blood sugar
 
 ## THIS PROGRAM IS CURRENTLY FOR MODELING PURPOSES ONLY AND SHOULD NOT BE USED TO DETERMINE HOW TO MANAGE AN INDIVIDUAL'S BLOOD GLUCOSE
 
+### Version 3
+Version 3 is on track for release by EOD January 29, 2021. This update will improve the UI, as well as fine tune the insulin resistance algorithm, particularly at the upper range.
+
 ### Running the Program
-Step 1: Ensure all necessary dependencies are installed
-Step 2: cd into project directory
-Step 3: type "python main.py" or "python3 main.py" depending on your OS
-Step 4: Hit Enter and follow the console prompts, once a graph is generated, simply closing the graph will prompt you to the next stage of the program.
+Step 1: Ensure all necessary dependencies are installed with the exception of pyinstaller.
+Step 2: cd into project directory.
+Step 3: type "python BetterBolus.py" or "python3 BetterBolus.py" depending on your OS
+Step 4: Hit Enter and the user interface will load up.
 
 ### Dependencies
 
@@ -22,5 +25,5 @@ Currently this program assumes that when the user wants to bolus, they want the 
 
 Due to Blood Glucose being affected by hundreds more variables than one can realistically ask a user to account for (like exact altitude, an objective measurement of their stress levels, the exact level of caffeine currently in their bloodtstream, etc) liberties are taken by the program in predicting a realistic potential outcome based off what the user can reliably provide. A pseudo-random number generator is used to establish a certain controlled level of variance and unpredictability in blood these glucose models.
 
-## Version 2 
-I am planning on refactoring into a standalone executable that should be able to run on any desktop environment. This will improve accessibility and user friendliness. V2 expected by EOD January 17th, 2021.
+#### About PyInstaller
+If desired, the program can be compiled into an executable with pyinstaller, while this is not necessary, it does provide an easy way to continuously access the application without having to cd into the project folder every time.
