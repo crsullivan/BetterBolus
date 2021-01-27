@@ -1,10 +1,10 @@
-# BetterBolus V1.0
+# BetterBolus V2.0
 A tool to better understand how to safely and efficiently treat high blood sugar, and to model the effects of fast acting insulin.
 
 ## THIS PROGRAM IS CURRENTLY FOR MODELING PURPOSES ONLY AND SHOULD NOT BE USED TO DETERMINE HOW TO MANAGE AN INDIVIDUAL'S BLOOD GLUCOSE
 
-### Version 3
-Version 3 is on track for release by EOD January 29, 2021. This update will improve the UI, as well as fine tune the insulin resistance algorithm, particularly at the upper range.
+### Version 2.1
+Version 2.1 is on track for release by EOD January 29, 2021. This update will improve the UI, as well as fine tune the insulin resistance algorithm, particularly at the upper range.
 
 ### Running the Program
 Step 1: Ensure all necessary dependencies are installed with the exception of pyinstaller.
